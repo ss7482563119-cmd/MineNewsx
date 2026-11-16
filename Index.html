@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MINEX – Exchange & Mining</title>
+<style>
+:root{box-sizing:border-box;color-scheme:dark;
+--bg:#12151f;--card:#1e222d;--card2:#262b38;--tx:#eaecef;--mu:#848e9c;--y:#f0b90b;--yt:#1a1500;--g:#0ecb81;--r:#f6465d;--bd:#2b3040}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){color-scheme:light;--bg:#f3f4f7;--card:#fff;--card2:#eceef3;--tx:#171a24;--mu:#6b7385;--bd:#dfe2ea}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+.app{max-width:520px;margin:0 auto;padding:12px 14px 96px}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tabs{flex:1;display:flex;background:var(--card);border-radius:12px;padding:4px;gap:2px}
+.tabs button{flex:1;border:0;background:none;color:var(--mu);padding:8px 4px;border-radius:9px;font:600 14px inherit;font-family:inherit;cursor:pointer}
+.tabs button.on{background:var(--y);color:var(--yt)}
+.logo{width:42px;height:42px;border-radius:12px;background:var(--card);display:grid;place-items:center;font-size:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;margin-bottom:14px}
+.cap{color:var(--mu);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.big{font-size:38px;font-weight:700;margin:6px 0}.big u{text-decoration:none;color:var(--y);font-size:15px;margin-left:6px}
+.g{color:var(--g)}.rd{color:var(--r)}.mu{color:var(--mu)}
+.eye{float:right;background:none;border:0;color:var(--mu);font-size:18px;cursor:pointer}
+.line{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--bd);padding-top:14px;margin-top:12px}
+.yb{background:var(--y);color:var(--yt);border:0;border-radius:12px;padding:12px 16px;font:700 14px inherit;font-family:inherit;cursor:pointer}
+.yb:disabled{opacity:.45;cursor:not-allowed}.yb.o{background:var(--card2);color:var(--tx)}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;text-align:center;font-size:13px}
+.qa button{background:none;border:0;color:var(--tx);font-family:inherit;cursor:pointer}
+.qa i{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 4px;border-radius:16px;background:var(--card);border:1px solid var(--bd);font-style:normal;font-size:24px}
+.mv{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.mv div,.coin{background:var(--card2);border-radius:14px;padding:10px}
+.coin{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px}
+.h2{font-size:20px;font-weight:700;margin:2px 0}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--card2);color:var(--tx);font-family:inherit;font-size:15px;margin:6px 0}
+.bar{height:10px;background:var(--card2);border-radius:99px;overflow:hidden;margin:12px 0}.bar i{display:block;height:100%;width:0;background:var(--y)}
+.tap{width:160px;height:160px;border-radius:50%;border:0;margin:10px auto;display:block;font-size:56px;cursor:pointer;background:radial-gradient(circle at 30% 30%,#ffd95a,var(--y));box-shadow:0 8px 26px #f0b90b44}
+.tap:active{transform:scale(.94)}
+.c{text-align:center}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--bd)}
+nav.bn{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);display:flex;justify-content:center;padding:6px}
+nav.bn div{display:flex;width:100%;max-width:520px}
+nav.bn button{flex:1;border:0;background:none;color:var(--mu);font-family:inherit;font-size:11px;padding:6px 0;cursor:pointer}
+nav.bn button span{display:block;font-size:22px}nav.bn button.on{color:var(--y)}
+.wc{background:linear-gradient(135deg,#1f4f6f,#0b1d2b);border-radius:22px;padding:20px;color:#eaf4ff;margin-bottom:14px;box-shadow:0 14px 30px #0006}
+.pb{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7c3aed,#5b4be0);color:#fff;border-radius:20px;padding:14px;margin-bottom:14px}
+.pb i{width:46px;height:46px;border-radius:14px;background:#ffffff30;display:grid;place-items:center;font-style:normal;font-size:22px}
+.pb button{border:0;background:#fff;color:#5b4be0;border-radius:12px;padding:10px 16px;font-size:18px;font-weight:700;cursor:pointer}
+.pbtn{width:100%;border:0;border-radius:14px;padding:14px;color:#fff;font-size:16px;font-weight:700;font-family:inherit;background:linear-gradient(90deg,#7c3aed,#4f46e5);cursor:pointer}
+.ov{position:fixed;inset:0;background:#000a;z-index:50;display:flex;align-items:center;justify-content:center;padding:18px}
+.mdl{background:var(--card);border-radius:24px;padding:20px;width:100%;max-width:420px}
+.tb{display:flex;gap:18px;border-bottom:1px solid var(--bd);margin:12px 0}.tb button{background:none;border:0;color:var(--mu);padding:8px 2px;font-family:inherit;font-size:15px;cursor:pointer}.tb button.on{color:#38bdf8;border-bottom:3px solid #38bdf8}
+.qrb svg{width:100%;height:100%}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><div class="logo">⛏️</div><div class="tabs" id="tabs"></div><button class="logo" data-a="ap" style="color:var(--y);border:0;cursor:pointer;font-size:22px">◈</button></div>
+<main id="v"></main>
+</div>
+<nav class="bn"><div id="bn"></div></nav>
+<div id="md"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+var PRICE=0.1,RATE=0.5/3600,DAY=864e5,CPC=0.05,MIN=1;
+var S={promos:[],ps:{},pd:{},reqs:[],adm:0,mt:0,bal:0,dep:0,tok:0,ms:0,me:0,en:100,posts:[],refs:0,refList:[],done:{},st:{},hide:0,log:[],hist:[],otasks:null,code:'MX'+Math.random().toString(36).slice(2,7).toUpperCase()};
+try{var r0=localStorage.getItem('minex2');if(r0)S=Object.assign(S,JSON.parse(r0))}catch(e){}
+var DEFAULT_OTASKS=[{id:'fb',i:'📘',n:'Follow our Facebook page',r:.5,u:'https://www.facebook.com/'},{id:'yt',i:'▶️',n:'Subscribe to our YouTube channel',r:1,u:'https://www.youtube.com/'},{id:'tg',i:'✈️',n:'Join our Telegram group',r:.5,u:'https://t.me/'},{id:'ig',i:'📸',n:'Follow us on Instagram',r:.5,u:'https://www.instagram.com/'}];
+if(!Array.isArray(S.otasks))S.otasks=DEFAULT_OTASKS.slice();
+if(!Array.isArray(S.refList))S.refList=[];
+function TASKS(){return S.otasks}
+var DCS={usdt:{n:'USDT',net:'BSC · BNB Smart Chain (BEP20)',a:'0xc5b0cbfa0726295e4feeb26e10437a90bb7b7fd8',u:'USDT'},ton:{n:'TON',net:'TON · The Open Network',a:'UQAPwl9pWYGaNEPGnDJQnEEgoBE0mK9G_C4tSlagFGHdb51T',u:'TON'}};
+var DC='usdt',P='home',TOP='ex',W='as';
+var COINS=[{n:'BNB',s:'BNBUSDT',p:689.28,x:0.23},{n:'BTC',s:'BTCUSDT',p:75138,x:-0.06},{n:'ETH',s:'ETHUSDT',p:2129.91,x:-0.69},{n:'MNX',fx:1}];
+var LIVE={ok:null,t:0},SEL=null,IV='15m',KL=[];
+function cp(c){return c.fx?PRICE:c.peg?1:c.p}
+function loadSp(){COINS.forEach(function(c){if(!c.s)return;ftch('https://api.binance.com/api/v3/klines?symbol='+c.s+'&interval=1h&limit=24',function(e,j){if(!e&&Array.isArray(j)){c.h=j.map(function(k){return parseFloat(k[4])});if(TOP==='ex'&&(P==='home'||P==='markets')&&!SEL)draw()}})})}
+function ftch(u,cb){var ac=new AbortController(),tm=setTimeout(function(){ac.abort()},8000);fetch(u,{signal:ac.signal}).then(function(r){return r.json()}).then(function(j){clearTimeout(tm);cb(null,j)}).catch(function(e){clearTimeout(tm);cb(e)})}
+function loadTick(){var sy=COINS.filter(function(c){return c.s}).map(function(c){return c.s});ftch('https://api.binance.com/api/v3/ticker/24hr?symbols='+encodeURIComponent(JSON.stringify(sy)),function(e,j){if(e||!Array.isArray(j)){LIVE.ok=false}else{LIVE.ok=true;LIVE.t=Date.now();j.forEach(function(t){COINS.forEach(function(c){if(c.s===t.symbol){c.p=parseFloat(t.lastPrice);c.x=parseFloat(t.priceChangePercent);c.hi=parseFloat(t.highPrice);c.lo=parseFloat(t.lowPrice);c.v=parseFloat(t.quoteVolume)}})})}if(TOP==='ex'&&(P==='home'||P==='markets'))draw()})}
+function loadKl(){var c=COINS.filter(function(k){return k.n===SEL})[0];if(!c||!c.s)return;var nm=c.n,lim=IV==='1d'?90:96;ftch('https://api.binance.com/api/v3/klines?symbol='+c.s+'&interval='+IV+'&limit='+lim,function(e,j){if(SEL!==nm)return;KL=(!e&&Array.isArray(j))?j.map(function(k){return parseFloat(k[4])}):[];if(P==='markets')draw()})}
+var NAV=[['home','🏠','Home'],['markets','📈','Markets'],['tasks','✅','Tasks'],['wallet','👛','Wallet'],['history','🕘','History'],['friends','👥','Friends']];
+function f(n,d){return Number(n).toLocaleString('en-US',{minimumFractionDigits:d==null?2:d,maximumFractionDigits:d==null?2:d})}
+function esc(t){var d=document.createElement('div');d.textContent=t;return d.innerHTML}
+function ea(u){return String(u).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function $(i){return document.getElementById(i)}
+function pv(){return S.bal+S.tok*PRICE}
+function save(){S.hist.push(pv());S.hist=S.hist.slice(-40);try{localStorage.setItem('minex2',JSON.stringify(S))}catch(e){}}
+function add(t,u,l){if(l==='Mining claim')S.mt=(S.mt||0)+t;S.tok+=t;S.bal+=u;S.log.unshift({d:Date.now(),l:l,t:t,u:u});S.log=S.log.slice(0,60);save();draw()}
+function today(){var s=new Date().setHours(0,0,0,0),x=0;S.log.forEach(function(e){if(e.d>=s)x+=e.t*PRICE+(e.l==='Deposit'?0:e.u)});return x}
+function spark(a,w,h,col){var mn=Math.min.apply(0,a),mx=Math.max.apply(0,a),d=mx-mn||1;return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="'+h+'" preserveAspectRatio="none"><polyline fill="none" stroke="'+col+'" stroke-width="2" points="'+a.map(function(v,i){return (i/(a.length-1)*w).toFixed(1)+','+(h-2-(v-mn)/d*(h-4)).toFixed(1)}).join(' ')+'"/></svg>'}
+function chg(c){return (c.p/c.o-1)*100}
+function mi(){var n=Date.now();if(!S.me)return{s:0,e:0,p:0,l:0};var el=Math.min(n,S.me)-S.ms;return{s:n>=S.me?2:1,e:el/1e3*RATE,p:el/DAY*100,l:Math.max(0,S.me-n)}}
+function hms(ms){var s=Math.floor(ms/1e3);return[s/3600|0,s%3600/60|0,s%60].map(function(x){return String(x).padStart(2,'0')}).join(':')}
+function draw(){
+ if(S.me && S.ms && S.me<=S.ms){S.me=0;S.ms=0;}
+ if(S.me && !S.ms){S.ms=S.me-DAY;}
+ var T=[['ex','Exchange'],['mi','Mining'],['mn','Mainnet']];
+ $('tabs').innerHTML=T.map(function(t){return '<button data-a="top" data-v="'+t[0]+'" class="'+(TOP===t[0]?'on':'')+'">'+t[1]+'</button>'}).join('');
+ $('bn').innerHTML=NAV.map(function(n){return '<button data-a="nav" data-v="'+n[0]+'" class="'+(P===n[0]&&TOP==='ex'?'on':'')+'"><span>'+n[1]+'</span>'+n[2]+'</button>'}).join('');
+ var h='';
+ if(location.hash==='#admin')h=admin();else if(TOP==='mn')h='<div class="card c"><div style="font-size:48px">🚧</div><div class="h2">Mainnet</div><p class="mu">Mainnet is coming soon.</p></div>';
+ else if(TOP==='mi')h=mine();
+ else if(P==='home')h=home();else if(P==='markets')h=markets();else if(P==='tasks')h=tasksP();else if(P==='wallet')h=wallet();else if(P==='history')h=historyP();else h=friends();
+ $('v').innerHTML=h;
+}
+function promo(){return '<div class="pb"><i>📢</i><div style="flex:1"><b>Promote Your Ads</b><div style="font-size:13px;opacity:.85">Reach thousands of active users</div></div><button data-a="pm">→</button></div>'+(S.promos.length?'<div class="card"><div class="h2">Your promotions</div>'+S.promos.map(function(p){return '<div class="item"><div><b>'+esc(p.t)+'</b><div class="mu" style="font-size:12px;word-break:break-all">'+esc(p.u)+'</div></div><div style="text-align:right"><b>'+f(p.b,2)+' MNX</b><div class="mu" style="font-size:12px">Clicks: '+p.c+'</div></div></div>'}).join('')+'</div>':'')}
+function home(){var t=today(),m=mi();
+ return '<div class="card"><button class="eye" data-a="eye">'+(S.hide?'🙈':'👁')+'</button><div class="cap">Estimated portfolio value</div><div class="big">'+(S.hide?'••••••':f(pv()))+'<u>USDT</u></div><div class="mu">Today\'s PNL <b class="'+(t>=0?'g':'rd')+'">'+(t>=0?'+':'-')+'$'+f(Math.abs(t))+'</b></div>'+spark(S.hist.length>1?S.hist:[pv(),pv()],300,70,'var(--g)')+
+ '<div class="line"><div><div class="mu" style="font-size:13px">Available</div><b>'+f(S.tok,2)+' MNX</b></div><button class="yb" data-a="top" data-v="mi">'+(m.s===1?'Mining in progress':'Start mining')+' →</button></div></div>'+
+ '<div class="qa"><button data-a="top" data-v="mi"><i>⚡</i>Mine</button><button data-a="nav" data-v="wallet"><i>👛</i>Wallet</button><button data-a="nav" data-v="markets"><i>📈</i>Markets</button><button data-a="nav" data-v="friends"><i>👥</i>Referrals</button></div>'+
+ promo()+'<div class="card"><div class="cap">Market Pulse</div><div style="display:flex;justify-content:space-between;align-items:center"><div class="h2">Top movers</div><a class="yb o" style="padding:6px 10px;font-size:12px" data-a="nav" data-v="markets">View all →</a></div><div class="mv">'+COINS.slice(0,3).map(function(c){var x=c.x;return '<div data-a="mc" data-v="'+c.n+'" style="cursor:pointer"><b>'+c.n+'</b><span class="mu">/USDT</span>'+(c.h?spark(c.h,100,36,'var(--y)'):'<div style="height:36px"></div>')+'<div style="margin:8px 0"><b>'+(c.p!=null?'$'+f(c.p):'—')+'</b></div><div class="'+(x>=0?'g':'rd')+'" style="font-size:13px">'+(x!=null?(x>=0?'+':'')+f(x)+'%':'')+'</div></div>'}).join('')+'</div></div>'}
+function markets(){if(SEL)return detail();return '<div class="card"><div class="h2">Markets</div><p class="mu" style="font-size:12px">'+(LIVE.ok?'Live prices · updated '+new Date(LIVE.t).toLocaleTimeString('en-US'):'Reference prices as of Nov 10, 2026 · live feed not connected')+'</p>'+COINS.map(function(c){var p=cp(c),x=c.x;return '<div class="coin" data-a="mc" data-v="'+c.n+'" style="cursor:pointer"><div style="width:90px"><b>'+c.n+'</b>/USDT</div><div style="flex:1">'+(c.h?spark(c.h,100,30,'var(--y)'):'')+'</div><div style="text-align:right"><b>'+(p!=null?'$'+f(p,p<1?4:2):'—')+'</b><div class="'+(x>=0?'g':'rd')+'" style="font-size:13px">'+(x!=null?(x>=0?'+':'')+f(x)+'%':'')+'</div></div></div>'}).join('')+'</div>'}
+function detail(){var c=COINS.filter(function(k){return k.n===SEL})[0],p=cp(c),x=c.x,ok=c.s&&LIVE.ok&&c.p!=null,body;
+ if(c.fx)body='<p class="mu">MNX is the internal MINEX token with a fixed platform price of $'+PRICE+'. It has no external market feed.</p>';
+ else if(c.peg)body='<p class="mu">USDT is a stablecoin pegged to 1 USD.</p>';
+ else if(!c.s)body='<p class="mu">No live price feed is configured for '+c.n+' yet.</p>';
+ else if(!ok)body='<p class="mu">'+(LIVE.ok===false?'The live price feed is currently unavailable.':'Connecting to live feed…')+'</p>';
+ else{function st(l,v){return '<div style="background:var(--card2);border-radius:12px;padding:10px"><small class="mu">'+l+'</small><br><b>'+v+'</b></div>'}
+  body='<div class="tb" style="margin:12px 0">'+['15m','1h','1d'].map(function(i){return '<button class="'+(IV===i?'on':'')+'" data-a="iv" data-v="'+i+'">'+i.toUpperCase()+'</button>'}).join('')+'</div>'+(KL.length>1?spark(KL,320,170,KL[KL.length-1]>=KL[0]?'var(--g)':'var(--r)'):'<p class="mu c">Loading chart…</p>')+'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px">'+st('24h High','$'+f(c.hi,c.hi<1?4:2))+st('24h Low','$'+f(c.lo,c.lo<1?4:2))+st('24h Volume','$'+f(c.v/1e6,1)+'M')+'</div>'}
+ return '<div class="card"><button class="yb o" data-a="mb" style="padding:6px 12px">← Back</button><div class="h2" style="margin-top:12px">'+c.n+'/USDT</div><div class="big">'+(p!=null?'$'+f(p,p<1?4:2):'—')+'</div>'+(x!=null?'<b class="'+(x>=0?'g':'rd')+'">'+(x>=0?'+':'')+f(x)+'% (24h)</b>':'')+(LIVE.ok||c.fx?'':'<div class="mu" style="font-size:12px">Reference price as of Nov 10, 2026</div>')+body+'</div>'}
+function mine(){var m=mi();
+ return '<div class="card c"><div class="cap">24-hour auto mining</div><div class="big" id="mt" style="font-size:34px">'+(m.s===1?hms(m.l):m.s===2?'Completed!':'24:00:00')+'</div><div class="bar"><i id="mb" style="width:'+m.p+'%"></i></div><p class="mu">Accrued: <b id="me" style="color:var(--tx)">'+f(m.e,4)+'</b> MNX · Rate 0.5/hour</p><button class="yb" data-a="mine" '+(m.s===1?'disabled':'')+'>'+(m.s===0?'Start mining':m.s===1?'Mining in progress…':'Claim')+'</button></div>'+
+ '<div class="card c"><div class="cap">Tap to earn</div><p class="mu">0.01 MNX per tap · Energy <b id="en" style="color:var(--tx)">'+Math.floor(S.en)+'</b>/100</p><button class="tap" data-a="tap">👆</button></div>'}
+function qrsvg(t){try{var q=qrcode(0,'M');q.addData(t);q.make();return q.createSvgTag(5,2)}catch(e){return '<small style="color:#444">QR failed to load</small>'}}
+function depBox(){var c=DCS[DC];return '<div class="tb" style="margin:6px 0 12px"><button class="'+(DC==='usdt'?'on':'')+'" data-a="dc" data-v="usdt">USDT (BSC)</button><button class="'+(DC==='ton'?'on':'')+'" data-a="dc" data-v="ton">TON</button></div><div class="mu" style="font-size:13px">Network</div><b>'+c.net+'</b><div class="qrb" style="background:#fff;border-radius:14px;padding:8px;margin:12px auto;width:210px;height:210px">'+qrsvg(c.a)+'</div><div class="mu" style="font-size:13px">Deposit address</div><div style="display:flex;gap:10px;align-items:center"><b style="word-break:break-all;color:var(--y);flex:1">'+c.a+'</b><button class="eye" style="float:none" data-a="cpa" data-v="'+c.a+'">⧉</button></div><div class="mu" style="font-size:12px;margin:10px 0">Minimum deposit: '+MIN+' '+c.u+'. Send only '+c.n+' on the '+c.net.split(' ')[0]+' network to this address. Sending any other coin or network may result in permanent loss. After sending, enter the amount and your TxID below. Balance is held in USDT; TON deposits are credited at their USDT value after admin review.</div>'}
+function wallet(){var ad='mx1'+S.code.toLowerCase()+'q8k2';
+ return '<div class="wc"><div style="display:flex;justify-content:space-between"><b>◈ MNX</b><span style="opacity:.7;letter-spacing:.15em;font-size:12px">WALLET</span></div><div style="opacity:.75;margin-top:22px;font-size:13px">MNX balance</div><div style="font-size:36px;font-weight:700">'+f(S.tok,2)+' <small style="font-size:14px;opacity:.7">MNX</small></div><div style="opacity:.8;margin-top:10px;font-size:14px">USDT balance: <b>'+f(S.bal)+'</b></div></div>'+
+ '<div class="qa"><button data-a="send"><i>↗</i>Send</button><button data-a="sc" data-v="dpc"><i>↙</i>Receive</button><button data-a="sc" data-v="buc"><i>🛍</i>Spend</button><button data-a="nav" data-v="history"><i>🕘</i>Activity</button></div>'+
+ '<div class="card" style="display:flex;align-items:center;gap:12px"><i style="font-style:normal;font-size:22px">👛</i><div style="flex:1;min-width:0"><b>Your MNX address</b><div class="mu" style="font-size:13px;overflow:hidden;text-overflow:ellipsis">'+ad+'</div></div><button class="eye" style="float:none" data-a="cpa" data-v="'+ad+'">⧉</button></div>'+
+ '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline"><div class="h2">Your assets</div><span class="mu">2 assets</span></div><div class="item" style="background:var(--card2);border-radius:12px;padding:12px;margin:10px 0;border:0"><span class="mu">USDT value</span><b style="font-size:20px">$'+f(pv())+'</b></div><div class="tb"><button class="'+(W==='as'?'on':'')+'" data-a="wt" data-v="as">Assets</button><button class="'+(W==='co'?'on':'')+'" data-a="wt" data-v="co">Collectibles</button></div>'+(W==='as'?'<div class="item" style="border:0"><div><b>MNX</b><div class="mu" style="font-size:13px">MINEX Token</div></div><div style="text-align:right"><b>'+f(S.tok,2)+'</b><div class="mu" style="font-size:13px">$'+f(S.tok*PRICE)+'</div></div></div><div class="item"><div><b>USDT</b><div class="mu" style="font-size:13px">Cash balance</div></div><div style="text-align:right"><b>'+f(S.bal)+'</b><div class="mu" style="font-size:13px">$'+f(S.bal)+'</div></div></div>':'<p class="mu c">No collectibles yet.</p>')+'</div>'+
+ '<div class="card" id="dpc"><div class="h2">Deposit</div>'+depBox()+'<input id="da" type="number" min="1" placeholder="Amount ('+DCS[DC].u+')"><input id="dt" placeholder="Transaction ID (TxID)"><button class="yb" data-a="dep" style="width:100%">Submit deposit request</button>'+S.reqs.slice(0,5).map(function(r){return '<div class="item"><div>'+f(r.a)+' '+(r.c||'USDT')+' · '+esc(r.m)+'</div><b class="'+(r.s==='a'?'g':r.s==='r'?'rd':'mu')+'">'+(r.s==='a'?'Approved':r.s==='r'?'Rejected':'Pending')+'</b></div>'}).join('')+'</div>'+
+ '<div class="card" id="buc"><div class="h2">Buy tokens</div><p class="mu">1 MNX = '+PRICE+' USDT · Available: <b style="color:var(--tx)">'+f(S.bal)+' USDT</b></p><p class="mu" style="font-size:12px">You need enough USDT balance to buy tokens. Deposit USDT or TON first.</p><input id="ba" type="number" min="1" placeholder="Amount in USDT"><p id="bp" class="mu" style="font-size:13px">You will get: 0.000 MNX</p><button class="yb" id="bb" data-a="buy" style="width:100%" disabled>Buy</button><button class="yb o" data-a="sc" data-v="dpc" style="width:100%;margin-top:8px">Go to deposit</button></div>'+
+ '<div class="card c"><div class="h2">Withdraw</div><p class="mu">🔒 Coming soon</p><button class="yb" disabled>Withdraw</button></div>'}
+function historyP(){return '<div class="card"><div class="h2">History</div>'+(S.log.map(function(e){return '<div class="item"><div>'+esc(e.l)+'<div class="mu" style="font-size:12px">'+new Date(e.d).toLocaleString('en-US')+'</div></div><b class="g">'+(e.t?(e.t>0?'+':'')+f(e.t,3)+' MNX':'')+(e.u?(e.u>0?' +':' ')+'$'+f(e.u):'')+'</b></div>'}).join('')||'<p class="mu">No transactions yet.</p>')+'</div>'}
+function friends(){var lk=location.href.split('#')[0].split('?')[0]+'?ref='+S.code;
+ var refRows=S.refList.map(function(r){return '<div class="item"><div><b>'+esc(r.c)+'</b><div class="mu" style="font-size:12px">'+new Date(r.d).toLocaleString('en-US')+'</div></div><b class="g">+'+r.m+' MNX</b></div>'}).join('');
+ return '<div class="card"><div class="h2">Referral program</div><p class="mu">Earn 1 MNX when someone uses your code, and they get 1 MNX too. Successful referrals: <b style="color:var(--tx)">'+S.refs+'</b></p><div class="mu" style="font-size:12px">Your referral code</div><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><b style="color:var(--y);font-size:18px;letter-spacing:.05em">'+S.code+'</b><button class="yb o" data-a="cpa" data-v="'+S.code+'" style="padding:6px 12px">⧉ Copy code</button></div><input id="rl" readonly value="'+ea(lk)+'"><button class="yb" data-a="cp">Copy link</button>'+
+ '<div style="border-top:1px solid var(--bd);margin-top:14px;padding-top:14px"><div class="h2">Submit a referral code</div><p class="mu" style="font-size:13px">Enter a friend\'s code. You get 1 MNX and they get 1 MNX too. Each code can only be used once per browser.</p><input id="rc" placeholder="Enter referral code (e.g. MXABC12)" style="text-transform:uppercase"><button class="yb" data-a="rsub" style="width:100%">Submit referral</button></div>'+
+ (refRows?'<div style="border-top:1px solid var(--bd);margin-top:14px;padding-top:14px"><div class="h2">Your referral activity</div>'+refRows+'</div>':'')+'</div>'+
+ '<div class="card"><div class="h2">Official tasks</div>'+TASKS().map(function(t){var d=S.done[t.id],s=S.st[t.id],w=s?Math.max(0,10-Math.floor((Date.now()-s)/1e3)):0;
+  var b=d?'<button class="yb o" disabled>✓ Done</button>':!s?'<a class="yb" style="text-decoration:none;display:inline-block" href="'+ea(t.u)+'" target="_blank" rel="noopener noreferrer" data-a="go" data-v="'+t.id+'">Go</a>':w>0?'<button class="yb o" disabled>'+w+'s</button>':'<button class="yb" data-a="cl" data-v="'+t.id+'">Claim</button>';
+  return '<div class="item"><div>'+esc(t.i)+' '+esc(t.n)+'<div class="mu" style="font-size:12px">+'+t.r+' MNX</div></div>'+b+'</div>'}).join('')+'</div>'+
+ '<div class="card"><div class="h2">Share a post</div><textarea id="pt" rows="2" placeholder="Write your post…"></textarea><button class="yb" data-a="post">Post (+0.1 MNX)</button>'+S.posts.map(function(p){return '<div class="item"><div>'+esc(p.t)+'<div class="mu" style="font-size:12px">'+esc(p.d)+'</div></div></div>'}).join('')+'</div>'}
+function tasksP(){var s0=new Date().setHours(0,0,0,0),n=0,rows=S.promos.map(function(p,i){if(!p.id)p.id='p'+i+'_'+(p.ts||0);return p}).filter(function(p){return (p.ts||Date.now())>=s0}).map(function(p){var st=S.ps[p.id],w=st?Math.max(0,10-Math.floor((Date.now()-st)/1e3)):0,dn=S.pd[p.id],out=p.b<CPC&&!dn;
+ var b=dn?'<button class="yb o" disabled>✓ Done</button>':out?'<button class="yb o" disabled>Ended</button>':!st?'<a class="yb" style="text-decoration:none;display:inline-block" href="'+ea(p.u)+'" target="_blank" rel="noopener noreferrer" data-a="to" data-v="'+p.id+'">Open</a>':w>0?'<button class="yb o" disabled>'+w+'s</button>':'<button class="yb" data-a="tc" data-v="'+p.id+'">Complete</button>';
+ n++;return '<div class="item"><div style="min-width:0"><b>'+esc(p.t)+'</b><div class="mu" style="font-size:12px">+'+CPC+' MNX · Budget left '+f(p.b,2)+'</div><div class="mu" style="font-size:11px;word-break:break-all">'+esc(p.u)+'</div></div>'+b+'</div>'});
+ return '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div class="h2">Today\'s tasks</div><span class="yb o" style="padding:4px 10px;font-size:12px">'+n+'</span></div><p class="mu" style="font-size:13px">Tap Open to visit the link, wait 10 seconds, then tap Complete to earn tokens.</p>'+(rows.join('')||'<p class="mu c">No tasks today. Use Promote Your Ads on the Home page to add one.</p>')+'</div>'}
+function modal(){return '<div class="ov"><div class="mdl"><div style="display:flex;justify-content:space-between;align-items:center"><div class="h2">📢 Create New Promotion</div><button data-a="pc" class="eye" style="float:none">✕</button></div><input id="pt1" placeholder="Item Title"><input id="pl1" placeholder="https://your-item-link.com"><input id="pi1" placeholder="Image URL (optional)"><input id="pb1" type="number" min="1" placeholder="Total Budget (MNX)"><p class="mu" style="font-size:13px">Estimated clicks you\'ll get: <b id="pe" style="color:var(--tx)">0</b></p><button class="pbtn" data-a="pd">🚀 Promote Now</button><button class="yb o" data-a="pc" style="width:100%;margin-top:8px">Cancel</button></div></div>'}
+function otModal(){return '<div class="ov"><div class="mdl"><div style="display:flex;justify-content:space-between;align-items:center"><div class="h2">➕ New Official Task</div><button data-a="oc" class="eye" style="float:none">✕</button></div><input id="oti" placeholder="Icon (emoji, e.g. 🎯)" maxlength="4"><input id="otn" placeholder="Task title"><input id="otr" type="number" step="0.01" min="0.01" placeholder="Reward (MNX)"><input id="otu" placeholder="https://task-link.com"><button class="pbtn" data-a="oadd">Add Task</button><button class="yb o" data-a="oc" style="width:100%;margin-top:8px">Cancel</button></div></div>'}
+function pinm(){return '<div class="ov"><div class="mdl"><div class="h2">🔐 Admin PIN</div><input id="pin" type="password" inputmode="numeric" placeholder="Enter PIN"><button class="yb" data-a="pk" style="width:100%">Enter</button><button class="yb o" data-a="pc" style="width:100%;margin-top:8px">Cancel</button></div></div>'}
+function admin(){if(!S.adm)return '<div class="card"><div class="h2">Admin login</div><input id="ae" type="email" placeholder="Admin Gmail"><button class="yb" data-a="al" style="width:100%">Sign in</button><p class="mu" style="font-size:12px">Prototype only: real security needs server-side Google sign-in.</p></div>';
+ var ap=0,pn=[],bud=0,done=Object.keys(S.pd).length;S.reqs.forEach(function(r){if(r.s==='a')ap+=(r.cr||r.a);if(r.s==='p')pn.push(r)});S.promos.forEach(function(p){bud+=p.b});
+ function bx(l,v){return '<div style="background:var(--card2);border-radius:14px;padding:12px"><small class="mu">'+l+'</small><br><b style="font-size:17px">'+v+'</b></div>'}
+ var otrows=S.otasks.map(function(t){return '<div class="item"><div style="min-width:0"><b>'+esc(t.i)+' '+esc(t.n)+'</b><div class="mu" style="font-size:12px;word-break:break-all">+'+t.r+' MNX · '+esc(t.u)+'</div></div><button class="yb o" data-a="odel" data-v="'+ea(t.id)+'">Delete</button></div>'}).join('')||'<p class="mu">No official tasks yet.</p>';
+ var rfrows=S.refList.map(function(r,i){return '<div class="item"><div><b>'+esc(r.c)+'</b> → this account<div class="mu" style="font-size:12px">'+new Date(r.d).toLocaleString('en-US')+'</div></div><button class="yb o" data-a="rdel" data-v="'+i+'">Delete</button></div>'}).join('')||'<p class="mu">No referrals yet.</p>';
+ return '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div class="h2">Admin panel</div><button class="yb o" data-a="lo" style="padding:6px 12px">Log out</button></div></div>'+
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">'+bx('Approved deposits','$'+f(ap))+bx('Pending requests',pn.length)+bx('Total mined',f(S.mt||0,2)+' MNX ($'+f((S.mt||0)*PRICE)+')')+bx('Active users (this browser)',1)+bx('Promo budget left',f(bud,2)+' MNX')+bx('Tasks completed',done)+'</div>'+
+ '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div class="h2">Official tasks</div><button class="yb" data-a="om" style="padding:6px 12px">+ Add</button></div><p class="mu" style="font-size:12px">These appear on the Friends page as official tasks. Tap Add to create a new one.</p>'+otrows+'</div>'+
+ '<div class="card"><div class="h2">Referrals</div><p class="mu" style="font-size:12px">Every time a user submits a code, both sides get 1 MNX. These entries are logged here.</p>'+rfrows+'</div>'+
+ '<div class="card"><div class="h2">Deposit requests</div>'+(pn.map(function(r){return '<div class="item"><div><b>'+f(r.a)+' '+(r.c||'USDT')+'</b> · '+esc(r.m)+'<div class="mu" style="font-size:12px;word-break:break-all">TxID: '+esc(r.tx)+' · '+new Date(r.ts).toLocaleString('en-US')+'</div></div><div style="display:flex;gap:6px;align-items:center"><input id="cr'+r.id+'" type="number" value="'+(r.c==='TON'?'':r.a)+'" placeholder="USDT" style="width:80px;margin:0"><button class="yb" data-a="ra" data-v="'+r.id+'">Accept</button><button class="yb o" data-a="rr" data-v="'+r.id+'">Reject</button></div></div>'}).join('')||'<p class="mu">No pending requests.</p>')+'</div>'}
+document.addEventListener('input',function(e){var i=e.target.id;
+ if(i==='pb1')$('pe').textContent=Math.floor((parseFloat(e.target.value)||0)/CPC);
+ if(i==='ba'){var u=parseFloat(e.target.value)||0;$('bp').textContent='You will get: '+f(u/PRICE,3)+' MNX'+(u>S.bal?' · Insufficient USDT balance':'');$('bb').disabled=!(u>0)||u>S.bal}});
+window.addEventListener('hashchange',function(){draw()});
+function applyRefFromURL(){
+ try{
+  var qs=new URLSearchParams(location.search),ref=qs.get('ref');
+  if(!ref)return;
+  ref=ref.trim().toUpperCase();if(!ref)return;
+  if(ref===S.code)return;
+  if(localStorage.getItem('minex2_refused_'+ref)==='1')return;
+  if(localStorage.getItem('minex2_refdone')==='1')return;
+  localStorage.setItem('minex2_refdone','1');
+  S.refs=(S.refs||0)+1;
+  S.refList.unshift({c:ref,d:Date.now(),m:1});
+  S.tok+=1;
+  S.log.unshift({d:Date.now(),l:'Referral bonus (code '+ref+')',t:1,u:0});
+  save();
+  setTimeout(function(){alert('Referral code '+ref+' applied! You received 1 MNX.');draw()},300);
+ }catch(e){}
+}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-a]');if(!b||b.disabled)return;var a=b.getAttribute('data-a'),x=b.getAttribute('data-v');
+ if(a==='nav'){location.hash='';SEL=null;P=x;TOP='ex';draw();scrollTo(0,0)}
+ else if(a==='top'){location.hash='';TOP=x;draw()}
+ else if(a==='eye'){S.hide=!S.hide;save();draw()}
+ else if(a==='mine'){var m=mi();if(m.s===0){S.ms=Date.now();S.me=S.ms+DAY;save();draw()}else if(m.s===2){var g=m.e;S.me=0;S.ms=0;add(g,0,'Mining claim')}}
+ else if(a==='tap'){if(S.en>=1){S.en--;S.tok+=.01;S.mt=(S.mt||0)+.01;if(!S.tapL||Date.now()-S.tapL>3000){S.log.unshift({d:Date.now(),l:'Tap earnings',t:.01,u:0})}else{S.log[0].t+=.01}S.tapL=Date.now();save();$('en').textContent=Math.floor(S.en)}}
+ else if(a==='dep'){var d=parseFloat($('da').value),tx=$('dt').value.trim();if(!(d>=MIN)){alert('Minimum deposit is '+MIN+' '+DCS[DC].u);return}if(!tx){alert('Please enter the transaction ID');return}S.reqs.unshift({id:'r'+Date.now(),a:d,m:DCS[DC].n+' ('+DCS[DC].net.split(' ')[0]+')',c:DCS[DC].u,tx:tx,s:'p',ts:Date.now()});save();alert('Request submitted. Your balance will be credited after admin approval.');draw()}
+ else if(a==='buy'){var u=parseFloat($('ba').value);if(!(u>0))return;if(u>S.bal){alert('Insufficient USDT balance. Please deposit first.');return}add(u/PRICE,-u,'Token purchase')}
+ else if(a==='go'){S.st[x]=Date.now();save();setTimeout(draw,60)}
+ else if(a==='cl'){var t2=TASKS().filter(function(k){return k.id===x})[0];if(!t2)return;S.done[x]=1;add(t2.r,0,'Task: '+t2.n)}
+ else if(a==='post'){var tx2=$('pt').value.trim();if(!tx2)return;S.posts.unshift({t:tx2,d:new Date().toLocaleString('en-US')});S.posts=S.posts.slice(0,20);add(.1,0,'Post bonus')}
+ else if(a==='cp'){var i=$('rl');if(!i)return;i.select();try{navigator.clipboard.writeText(i.value)}catch(er){}b.textContent='Copied ✓'}
+ else if(a==='rsub'){
+  var rc=($('rc')||{}).value;rc=(rc||'').trim().toUpperCase();
+  if(!rc){alert('Please enter a referral code');return}
+  if(rc===S.code){alert('You cannot use your own referral code');return}
+  var usedKey='minex2_refused_'+rc;
+  if(localStorage.getItem(usedKey)==='1'){alert('This code has already been used in this browser');return}
+  if(localStorage.getItem('minex2_refdone')==='1'){alert('You have already submitted a referral code');return}
+  localStorage.setItem('minex2_refdone','1');
+  localStorage.setItem(usedKey,'1');
+  add(1,0,'Referral bonus (submitted '+rc+')');
+  S.refs=(S.refs||0)+1;
+  S.refList.unshift({c:rc,d:Date.now(),m:1});
+  save();
+  alert('Referral submitted! You and your friend each get 1 MNX.');
+  draw();
+ }
+ else if(a==='to'){var pp=S.promos.filter(function(k){return k.id===x})[0];if(!pp)return;S.ps[x]=Date.now();save();setTimeout(draw,60)}
+ else if(a==='tc'){var p2=S.promos.filter(function(k){return k.id===x})[0];if(!p2||S.pd[x]||!S.ps[x]||Date.now()-S.ps[x]<10000||p2.b<CPC)return;S.pd[x]=1;p2.c++;p2.b=Math.round((p2.b-CPC)*1e6)/1e6;add(CPC,0,'Task: '+p2.t)}
+ else if(a==='mc'){location.hash='';TOP='ex';P='markets';SEL=x;KL=[];draw();scrollTo(0,0);loadKl()}
+ else if(a==='mb'){SEL=null;draw()}
+ else if(a==='iv'){IV=x;KL=[];draw();loadKl()}
+ else if(a==='sc'){var el=$(x);if(el)el.scrollIntoView({behavior:'smooth'})}
+ else if(a==='send'){alert('Send is coming soon')}
+ else if(a==='cpa'){try{navigator.clipboard.writeText(x)}catch(er){}b.textContent='✓'}
+ else if(a==='wt'){W=x;draw()}
+ else if(a==='dc'){DC=x;draw()}
+ else if(a==='pm'){$('md').innerHTML=modal()}
+ else if(a==='pc'){$('md').innerHTML=''}
+ else if(a==='pd'){var tt=$('pt1').value.trim(),ul=$('pl1').value.trim(),im=$('pi1').value.trim(),bg=parseFloat($('pb1').value);
+  if(!tt){alert('Please enter a title');return}if(!/^https?:\/\//.test(ul)){alert('Please enter a valid link (https://...)');return}if(!(bg>=1)){alert('Minimum budget is 1 MNX');return}if(bg>S.tok){alert('Insufficient MNX balance');return}
+  S.promos.unshift({id:'p'+Date.now(),ts:Date.now(),t:tt,u:ul,i:im,b:bg,c:0});$('md').innerHTML='';add(-bg,0,'Promotion: '+tt)}
+ else if(a==='om'){$('md').innerHTML=otModal()}
+ else if(a==='oc'){$('md').innerHTML=''}
+ else if(a==='oadd'){var oi=$('oti').value.trim()||'✅',on=$('otn').value.trim(),or=parseFloat($('otr').value),ou=$('otu').value.trim();
+  if(!on){alert('Please enter a task title');return}if(!(or>0)){alert('Please enter a reward greater than 0');return}if(!/^https?:\/\//.test(ou)){alert('Please enter a valid link (https://...)');return}
+  var nid='ot'+Date.now();S.otasks.push({id:nid,i:oi,n:on,r:or,u:ou});$('md').innerHTML='';save();draw();alert('Official task added ✓')}
+ else if(a==='odel'){if(!confirm('Delete this official task?'))return;var did=x;S.otasks=S.otasks.filter(function(t){return t.id!==did});delete S.done[did];delete S.st[did];save();draw()}
+ else if(a==='rdel'){if(!confirm('Delete this referral entry?'))return;var idx=parseInt(x,10);if(idx>=0){S.refList.splice(idx,1);S.refs=Math.max(0,(S.refs||0)-1);save();draw()}}
+ else if(a==='ap'){if(S.adm){location.hash='admin';draw()}else{$('md').innerHTML=pinm()}}
+ else if(a==='pk'){if($('pin').value.trim()==='258022'){S.adm=1;save();$('md').innerHTML='';location.hash='admin';draw()}else alert('Incorrect PIN')}
+ else if(a==='al'){if($('ae').value.trim().toLowerCase()==='ss7482563119@gmail.com'){S.adm=1;save();draw()}else alert('Incorrect email')}
+ else if(a==='lo'){S.adm=0;save();location.hash='';draw()}
+ else if(a==='ra'){var q=S.reqs.filter(function(k){return k.id===x})[0];var cv=parseFloat(($('cr'+x)||{}).value);if(q&&q.s==='p'){if(!(cv>0)){alert('Enter the USDT amount to credit');return}q.s='a';q.cr=cv;S.dep+=cv;add(0,cv,'Deposit')}}
+ else if(a==='rr'){var q2=S.reqs.filter(function(k){return k.id===x})[0];if(q2&&q2.s==='p'){q2.s='r';save();draw()}}
+});
+setInterval(function(){
+ if(TOP==='mi'&&$('mt')){var m=mi();$('mt').textContent=m.s===1?hms(m.l):m.s===2?'Completed!':'24:00:00';$('mb').style.width=m.p+'%';$('me').textContent=f(m.e,4);if(m.s===2&&document.querySelector('[data-a=mine]').disabled)draw()}
+ if(TOP==='ex'&&P==='tasks'&&Object.keys(S.ps).some(function(k){return !S.pd[k]&&Date.now()-S.ps[k]<11000}))draw();
+ S.en=Math.min(100,S.en+.5);if($('en'))$('en').textContent=Math.floor(S.en);
+ if(TOP==='ex'&&P==='friends'&&Object.keys(S.st).some(function(k){return !S.done[k]&&Date.now()-S.st[k]<11000}))draw();
+},1000);
+applyRefFromURL();
+loadTick();loadSp();setInterval(loadSp,300000);setInterval(loadTick,10000);setInterval(function(){if(SEL&&P==='markets')loadKl()},30000);
+draw();
+</script>
+</body>
+</html>
